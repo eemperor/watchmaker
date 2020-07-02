@@ -6,7 +6,8 @@
 	url = https://github.com/plus3it/ash-windows-formula.git
 [submodule "src/watchmaker/static/salt/formulas/join-domain-formula"]
 	path = src/watchmaker/static/salt/formulas/join-domain-formula
-	url = https://github.com/plus3it/join-domain-formula.git
+	url = https://github.com/eemperor/join-domain-formula.git
+	branch = fixsudo
 [submodule "src/watchmaker/static/salt/formulas/splunkforwarder-formula"]
 	path = src/watchmaker/static/salt/formulas/splunkforwarder-formula
 	url = https://github.com/plus3it/splunkforwarder-formula.git
