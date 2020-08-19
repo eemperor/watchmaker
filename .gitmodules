@@ -9,7 +9,8 @@
 	url = https://github.com/plus3it/join-domain-formula.git
 [submodule "src/watchmaker/static/salt/formulas/splunkforwarder-formula"]
 	path = src/watchmaker/static/salt/formulas/splunkforwarder-formula
-	url = https://github.com/plus3it/splunkforwarder-formula.git
+	url = https://github.com/eemperor/splunkforwarder-formula.git
+        branch = update
 [submodule "src/watchmaker/static/salt/formulas/mcafee-agent-formula"]
 	path = src/watchmaker/static/salt/formulas/mcafee-agent-formula
 	url = https://github.com/plus3it/mcafee-agent-formula.git
