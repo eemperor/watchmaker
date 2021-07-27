@@ -139,3 +139,11 @@ jobs:
         skip_upload_docs: true
         on:
           tags: true
+
+    - stage: test
+      name: publish scap reports
+      python: 3.8
+      install:
+        - pip install awscli
+      script:
+        - aws codebuild start-build --project-name $CODEBUILD_PROJECT --region us-east-1 > /dev/null 2>&1
