@@ -1,18 +1,29 @@
 #!/bin/bash
 set -eu -o pipefail
 
-[[ $# -lt 2 ]] && {
-    echo "Usage $0 <PROJECT_NAME> <CB_ENV_OVERRIDE>" >&2
-    echo "  Example: $0 xyz-project file://xyz.json" >&2
+[[ $# -lt 3 ]] && {
+    echo "Usage $0 <PROJECT_NAME> <S3_KEYFIX> <WAM_VERSION>" >&2
+    echo "  Example: $0 xyz-project s3-bucket/path 0.23.1" >&2
     exit 1
 }
 
 PROJECT_NAME=$1
-CB_ENV_OVERRIDE=$2
-BUILD_ID=$(aws codebuild start-build --project-name ${PROJECT_NAME} --environment-variables-override ${CB_ENV_OVERRIDE} --output text --query 'build.id')
+S3_KEYFIX=$2
+WAM_VERSION=$3
+
+CB_ENV_OVERRIDE='[{"name":"TF_VAR_s3_scan_bucket","value":"'"$S3_KEYFIX"'","type":"PLAINTEXT"},{"name":"TF_VAR_wam_version","value":"'"$WAM_VERSION"'","type":"PLAINTEXT"},{"name":"TF_VAR_standalone_builds","value":"[\"centos7\",\"rhel7\"]","type":"PLAINTEXT"},{"name":"TF_VAR_source_builds","value":"[]","type":"PLAINTEXT"}]'
+
 WAIT_INTERVAL=30 #in seconds
 
-echo "Build job started!"
+if [ -z $(aws codebuild list-projects  --output text --query "projects[? @ == '${PROJECT_NAME}']") ]; then
+  echo "Codebuild project not found!"
+  exit 1
+else
+  echo "Codebuild project found!  Starting build job..."
+  echo $CB_ENV_OVERRIDE
+  BUILD_ID=$(aws codebuild start-build --project-name ${PROJECT_NAME} --environment-variables-override ${CB_ENV_OVERRIDE} --output text --query 'build.id')
+  #exit 0
+fi
 
 build_status() {
   aws codebuild batch-get-builds --ids ${BUILD_ID} --query 'builds[*].buildStatus' --output text
