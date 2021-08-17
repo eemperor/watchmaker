@@ -20,9 +20,7 @@ if [ -z $(aws codebuild list-projects  --output text --query "projects[? @ == '$
   exit 1
 else
   echo "Codebuild project found!  Starting build job..."
-  echo $CB_ENV_OVERRIDE
   BUILD_ID=$(aws codebuild start-build --project-name ${PROJECT_NAME} --environment-variables-override ${CB_ENV_OVERRIDE} --output text --query 'build.id')
-  #exit 0
 fi
 
 build_status() {

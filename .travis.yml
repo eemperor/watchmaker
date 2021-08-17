@@ -147,4 +147,4 @@ jobs:
         - pip install awscli
         - chmod +x ci/codebuild_start_wait.sh
       script:
-        - ci/codebuild_start_wait.sh $CODEBUILD_PROJECT "file://ci/terrafirm-override-env.json"
+        - ci/codebuild_start_wait.sh $CODEBUILD_PROJECT $DEV_BUCKET/$S3_KEYFIX $RELEASE_VERSION
