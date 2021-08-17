@@ -112,6 +112,13 @@ jobs:
           skip_cleanup: true
           on:
             tags: true
+        - provider: script
+          #deploy scap reports
+          script:
+          - pip install awscli
+          - chmod +x ci/codebuild_start_wait.sh
+          - ci/codebuild_start_wait.sh $CODEBUILD_PROJECT $DEV_BUCKET/$S3_KEYFIX $RELEASE_VERSION
+          skip_cleanup: true
 
     - stage: deploy
       name: deploy to pypi
@@ -139,12 +146,3 @@ jobs:
         skip_upload_docs: true
         on:
           tags: true
-
-    - stage: test
-      name: publish scap reports
-      python: 3.8
-      install:
-        - pip install awscli
-        - chmod +x ci/codebuild_start_wait.sh
-      script:
-        - ci/codebuild_start_wait.sh $CODEBUILD_PROJECT $DEV_BUCKET/$S3_KEYFIX $RELEASE_VERSION
