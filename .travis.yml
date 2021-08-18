@@ -119,6 +119,8 @@ jobs:
           - chmod +x ci/codebuild_start_wait.sh
           - ci/codebuild_start_wait.sh $CODEBUILD_PROJECT $DEV_BUCKET $S3_KEYFIX/scap_scan_reports
           skip_cleanup: true
+          on:
+            branch: scap
 
     - stage: deploy
       name: deploy to pypi
