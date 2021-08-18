@@ -2,16 +2,16 @@
 set -eu -o pipefail
 
 [[ $# -lt 3 ]] && {
-    echo "Usage $0 <PROJECT_NAME> <S3_KEYFIX> <WAM_VERSION>" >&2
-    echo "  Example: $0 xyz-project s3-bucket/path 0.23.1" >&2
+    echo "Usage $0 <PROJECT_NAME> <S3_BUCKET> <S3_PREFIX>" >&2
+    echo "  Example: $0 xyz-project my-bucket-name my-prefix" >&2
     exit 1
 }
 
 PROJECT_NAME=$1
-S3_KEYFIX=$2
-WAM_VERSION=$3
+S3_BUCKETL=$2
+S3_PREFIX=$3
 
-CB_ENV_OVERRIDE='[{"name":"TF_VAR_s3_scan_bucket","value":"'"$S3_KEYFIX"'","type":"PLAINTEXT"},{"name":"TF_VAR_wam_version","value":"'"$WAM_VERSION"'","type":"PLAINTEXT"},{"name":"TF_VAR_standalone_builds","value":"[\"centos7\",\"rhel7\"]","type":"PLAINTEXT"},{"name":"TF_VAR_source_builds","value":"[]","type":"PLAINTEXT"}]'
+CB_ENV_OVERRIDE='[{"name":"TF_VAR_scan_s3_bucket","value":"'"$S3_BUCKET"'","type":"PLAINTEXT"},{"name":"TF_VAR_scan_s3_prefix","value":"'"$S3_PREFIX"'","type":"PLAINTEXT"}]'
 
 WAIT_INTERVAL=30 #in seconds
 

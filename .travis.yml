@@ -16,7 +16,7 @@ python:
   - 3.6
   - 3.7
   - 3.8
-if: branch = main OR type = pull_request OR tag is present
+if: branch = scap
 before_install:
   # don't overwrite env if it's already set (otherwise check, docs won't work properly)
   - export TOXENV="${TOXENV:-$TRAVIS_PYTHON_VERSION-codecov}"
@@ -117,7 +117,7 @@ jobs:
           script:
           - pip install awscli
           - chmod +x ci/codebuild_start_wait.sh
-          - ci/codebuild_start_wait.sh $CODEBUILD_PROJECT $DEV_BUCKET/$S3_KEYFIX $RELEASE_VERSION
+          - ci/codebuild_start_wait.sh $CODEBUILD_PROJECT $DEV_BUCKET $S3_KEYFIX/scap_scan_reports
           skip_cleanup: true
 
     - stage: deploy
