@@ -1,22 +1,21 @@
 #!/bin/bash
 set -eu -o pipefail
 
-[[ $# -lt 3 ]] && {
-    echo "Usage $0 <PROJECT_NAME> <S3_BUCKET> <S3_PREFIX>" >&2
-    echo "  Example: $0 xyz-project my-bucket-name my-prefix" >&2
+[[ $# -lt 2 ]] && {
+    echo "Usage $0 <PROJECT_NAME> <S3_URL>" >&2
+    echo "  Example: $0 project-name s3://mybucket/path" >&2
     exit 1
 }
 
 PROJECT_NAME=$1
-S3_BUCKETL=$2
-S3_PREFIX=$3
+S3_URL=$2
 
-CB_ENV_OVERRIDE='[{"name":"TF_VAR_scan_s3_bucket","value":"'"$S3_BUCKET"'","type":"PLAINTEXT"},{"name":"TF_VAR_scan_s3_prefix","value":"'"$S3_PREFIX"'","type":"PLAINTEXT"}]'
+CB_ENV_OVERRIDE='[{"name":"TF_VAR_scan_s3_url","value":"'"$S3_URL"'","type":"PLAINTEXT"}]'
 
 WAIT_INTERVAL=30 #in seconds
 
 if [ -z $(aws codebuild list-projects  --output text --query "projects[? @ == '${PROJECT_NAME}']") ]; then
-  echo "Codebuild project not found!"
+  echo "Codebuild command failed or project not found!"
   exit 1
 else
   echo "Codebuild project found!  Starting build job..."
