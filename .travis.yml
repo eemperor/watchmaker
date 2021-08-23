@@ -84,9 +84,7 @@ jobs:
         # prepare deployment envs
         - source .gravitybee/gravitybee-environs.sh
         - export SATS_TAG=$GB_ENV_APP_VERSION
-        - |
-          export SATS_BODY="* [$GB_ENV_APP_NAME v$GB_ENV_APP_VERSION CHANGELOG](https://github.com/plus3it/$GB_ENV_APP_NAME/blob/$GB_ENV_APP_VERSION/CHANGELOG.md)
-            * [$GB_ENV_APP_NAME v$GB_ENV_APP_VERSION SCAP REPORTS](https://watchmaker.dev.cloudarmor.io/list.html#releases/$GB_ENV_APP_VERSION/scans)"
+        - export SATS_BODY="$(echo -e '* [$GB_ENV_APP_NAME v$GB_ENV_APP_VERSION CHANGELOG](https://github.com/plus3it/$GB_ENV_APP_NAME/blob/$GB_ENV_APP_VERSION/CHANGELOG.md)\n* [$GB_ENV_APP_NAME v$GB_ENV_APP_VERSION SCAP REPORTS](https://watchmaker.dev.cloudarmor.io/list.html#releases/$GB_ENV_APP_VERSION/scans)')"
         - export SATS_REL_NAME="Release v$GB_ENV_APP_VERSION"
         - echo Tag name is $SATS_TAG
         - pip install -r requirements/deploy.txt
@@ -118,7 +116,7 @@ jobs:
           script: bash ci/codebuild_start_wait.sh $CODEBUILD_PROJECT s3://$DEV_BUCKET/$S3_KEYFIX/$RELEASE_VERSION/scans
           skip_cleanup: true
           on:
-            branch: test-release
+            branch: main
 
     - staee: deploy
       name: deploy to pypi
