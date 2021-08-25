@@ -116,7 +116,7 @@ jobs:
           script: bash ci/codebuild_start_wait.sh $CODEBUILD_PROJECT s3://$DEV_BUCKET/$S3_KEYFIX/$RELEASE_VERSION/scans
           skip_cleanup: true
           on:
-            branch: main
+            branch: test-release
 
     - staee: deploy
       name: deploy to pypi
