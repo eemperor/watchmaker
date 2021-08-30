@@ -34,7 +34,7 @@ script:
   - tox -v
 before_script:
   - |
-    if [[ "$TRAVIS_BRANCH" = "main" && "$PRIOR_VERSION" = "$RELEASE_VERSION" ]]; then
+    if [[ "$TRAVIS_BRANCH" = "test-release" && "$PRIOR_VERSION" = "$RELEASE_VERSION" ]]; then
       # not a release, so need to set the dev version for test pypi and standalones
       # whether setup.cfg version has "dev" or not, it is added but not duplicated
       ver=$(git show -s --format=%cd --date=format:'%Y%m%d%H%M%S')
@@ -97,6 +97,7 @@ jobs:
           skip_cleanup: true
           on:
             branch: test-release
+            condition: '"$PRIOR_VERSION" != "$RELEASE_VERSION"'
         - provider: s3
           bucket: $DEV_BUCKET
           upload_dir: $S3_KEYFIX
@@ -113,7 +114,7 @@ jobs:
             tags: true
         - provider: script
           # publish scap reports
-          script: bash ci/codebuild_start_wait.sh $CODEBUILD_PROJECT s3://$DEV_BUCKET/$S3_KEYFIX/$RELEASE_VERSION/scans
+          script: bash ci/codebuild_start_wait.sh $CODEBUILD_PROJECT s3://$DEV_BUCKET/$S3_KEYFIX/$RELEASE_VERSION.dev$ver/scans
           skip_cleanup: true
           on:
             branch: test-release
