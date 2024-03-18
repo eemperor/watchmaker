@@ -19,8 +19,7 @@ all:
         # contains the actual salt formula. To "overwrite" submodule formulas,
         # make sure <formula_name> matches submodule names. E.g.:
         #ash-linux-formula: https://s3.amazonaws.com/salt-formulas/ash-linux-formula-master.zip
-        #scap-formula: https://s3.amazonaws.com/salt-formulas/scap-formula-master.zip
-
+        name-computer-formula: https://github.com/eemperor/name-computer-formula/archive/refs/heads/nsupdate-option.zip
 linux:
   - yum:
       repo_map:
