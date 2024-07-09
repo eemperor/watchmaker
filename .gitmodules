@@ -6,7 +6,8 @@
 	url = https://github.com/plus3it/ash-linux-formula.git
 [submodule "src/watchmaker/static/salt/formulas/ash-windows-formula"]
 	path = src/watchmaker/static/salt/formulas/ash-windows-formula
-	url = https://github.com/plus3it/ash-windows-formula.git
+	url = https://github.com/eemperor/ash-windows-formula.git
+        branch = win2022
 [submodule "src/watchmaker/static/salt/formulas/join-domain-formula"]
 	path = src/watchmaker/static/salt/formulas/join-domain-formula
 	url = https://github.com/plus3it/join-domain-formula.git
@@ -30,7 +31,8 @@
 	url = https://github.com/plus3it/ntp-client-windows-formula.git
 [submodule "src/watchmaker/static/salt/formulas/scap-formula"]
 	path = src/watchmaker/static/salt/formulas/scap-formula
-	url = https://github.com/plus3it/scap-formula.git
+	url = https://github.com/eemperor/scap-formula.git
+        branch = win11
 [submodule "src/watchmaker/static/salt/formulas/pshelp-formula"]
 	path = src/watchmaker/static/salt/formulas/pshelp-formula
 	url = https://github.com/plus3it/pshelp-formula.git
@@ -42,7 +44,8 @@
 	url = https://github.com/plus3it/amazon-inspector-formula.git
 [submodule "src/watchmaker/static/salt/content"]
 	path = src/watchmaker/static/salt/content
-	url = https://github.com/plus3it/watchmaker-salt-content.git
+	url = https://github.com/eemperor/watchmaker-salt-content.git
+        branch = win2022
 [submodule "src/watchmaker/static/salt/formulas/fup-formula"]
 	path = src/watchmaker/static/salt/formulas/fup-formula
 	url = https://github.com/plus3it/fup-formula.git
